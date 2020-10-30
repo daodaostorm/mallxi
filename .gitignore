@@ -1,0 +1,6 @@
+#ignore files
+/target
+compile.bat
+package.sh
+package.bat
+server.log

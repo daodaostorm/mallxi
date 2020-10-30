@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->  
+<mapper namespace="com.mallxi.mapper.UserMapper">  
+
+	<!-- insert user -->
+	<insert id = "insert" parameterType="com.mallxi.bean.User">
+		INSERT INTO USERS(ID,USERNAME,PASSWORD,AGE,ROLE) VALUES(#{id},#{username},#{password},#{age},#{role});
+	</insert>
+	
+	<!-- update user -->
+	<update id="update" parameterType="com.mallxi.bean.User">
+		UPDATE USERS SET USERNAME=#{username} , PASSWORD=#{password} , AGE = #{age} , ROLE = #{role} WHERE ID=#{id}
+	</update>
+	
+	<!-- find user -->
+	<select id="find" parameterType="int" resultType="com.mallxi.bean.User">
+		SELECT ID,USERNAME,PASSWORD,AGE,ROLE FROM USERS WHERE ID=#{0}
+	</select>
+	
+	<resultMap id="userResults" type="com.mallxi.bean.User">
+        <result column="ID" property="id"></result>
+        <result column="USERNAME" property="username"></result>
+        <result column="PASSWORD" property="password"></result>
+		<result column="AGE" property="age"></result>
+		<result column="ROLE" property="role"></result>
+    </resultMap>
+	
+	<!-- find userAll -->
+	<select id="findAll" resultMap="userResults">
+		SELECT * FROM USERS
+	</select>
+	
+	<!-- get user by name-->
+	<select id="getuserbyname" parameterType="String" resultType="com.mallxi.bean.User">
+		SELECT ID,USERNAME,PASSWORD,AGE,ROLE FROM USERS WHERE USERNAME=#{0}
+	</select>
+	
+	<!-- delete user -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM USERS WHERE ID=#{0}
+	</delete>
+</mapper>

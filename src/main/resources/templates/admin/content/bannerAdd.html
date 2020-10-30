@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>header</title>
+</head>
+
+<body>
+	<div id="content" th:fragment="content">
+		<div class="container">
+			<!-- Breadcrumbs line -->
+			<div class="crumbs">
+				<ul id="breadcrumbs" class="breadcrumb">
+					<li><i class="icon-home"></i> <a href="/">主页</a></li>
+					<li class="current">顶部推荐管理</li>
+				</ul>
+
+			</div>
+			<!-- /Breadcrumbs line -->
+
+			<!--=== Page Header ===-->
+			<div class="page-header">
+				<div class="page-title">
+					<span th:inline="text">欢迎使用，[[${#httpServletRequest.remoteUser}]]!</span>
+				</div>
+
+			</div>
+			<!-- /Page Header -->
+
+			<!--=== Page Content ===-->
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="widget box">
+						<div class="widget-header">
+							<h4>
+								<i class="icon-reorder"></i> 增加顶部推荐
+							</h4>
+							<div class="toolbar no-padding">
+								<div class="btn-group">
+									<span class="btn btn-xs collapse"><i
+										class="icon-angle-down"></i></span>
+								</div>
+							</div>
+						</div>
+						<div class="content no-padding">
+							<form action="#" th:action="@{/admin/banner/edit}"
+								th:object="${bannerAdd}" method="post" enctype="multipart/form-data">
+								<input type="hidden" name="updateby" th:field="*{updateby}" />
+								<input type="hidden" name="createtime" th:field="*{createtime}" />
+								<input type="hidden" name="updatetime" th:field="*{updatetime}" />
+								<p>
+									产品名称: <input type="text" name="title" style="width:700px;" th:field="*{title}" />
+								</p>
+								<p>
+									产品号: <input type="text" name="proid" style="width:700px;" th:field="*{proid}" />
+								</p>
+								<p>
+								             图片: <img th:src="*{picUrl}" width="165" height="50" />
+								</p>
+								<p>
+									<input type="file" name="file" style="width:700px;" />
+								</p>
+								<p>
+									上线状态: <input type="text" name="status" style="width:700px;" th:field="*{status}" />
+								</p>
+								
+								<p>
+									<input type="submit" value="提交" />
+								</p>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- /.row -->
+			<!-- /Page Content -->
+		</div>
+		<!-- /.container -->
+
+	</div>
+
+</body>
+</html>

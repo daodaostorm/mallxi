@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>header</title>
+</head>
+
+<body>
+	<div id="content" th:fragment="content">
+		<div class="container">
+
+			<!--=== Page Header ===-->
+			<div class="page-header">
+				<div class="page-title">
+					<h3>商品管理</h3>
+				</div>
+			</div>
+			<!-- /Page Header -->
+
+			<!--=== Page Content ===-->
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="widget box">
+						<div class="widget-header">
+							<h4>
+								<i class="icon-reorder"></i> 商品列表
+							</h4>
+							<div class="toolbar no-padding">
+								<div class="btn-group">
+									<span class="btn btn-xs "><a
+										th:href="@{/admin/goodinfo/add}"><i class="icon-plus"></i></a></span>
+								</div>
+							</div>
+						</div>
+						<div class="content no-padding">
+							<table id="grid-data"
+								class="table table-condensed table-hover table-striped">
+								<thead>
+									<tr>
+										<th data-column-id="proid">商品ID</th>
+										<th data-column-id="name">名称</th>
+										<th data-column-id="cateid">分类</th>
+										<th data-column-id="mainimage">图片</th>
+										<th data-column-id="orginprice">原价</th>											
+										<th data-column-id="price">现价</th>
+										<th data-column-id="status">状态</th>											
+										<th data-column-id="stock">剩余数量</th>								
+										<th data-column-id="recommend">推荐</th>
+										<th data-column-id="updatetime">更新时间</th>
+										<th data-column-id="edit">编辑</th>
+										<th data-column-id="moveup">上移</th>
+										<th data-column-id="movedown">下移</th>
+										<th data-column-id="delete">删除</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="goodinfo : ${goodinfolist}">
+										<td style="display:table-cell; vertical-align:middle" th:text="${goodinfo.proid}"></td>
+										<td style="display:table-cell; vertical-align:middle" th:text="${goodinfo.name}"></td>
+										<td style="display:table-cell; vertical-align:middle" th:text="${goodinfo.cateid}"></td>
+										<td ><img th:src="${goodinfo.mainimage}" width="50" height="50" /></td>
+										<td style="display:table-cell; vertical-align:middle" th:text="${goodinfo.orginprice}"></td>
+										<td style="display:table-cell; vertical-align:middle" th:text="${goodinfo.price}"></td>
+										<td style="display:table-cell; vertical-align:middle" th:text="${goodinfo.status}"></td>
+										<td style="display:table-cell; vertical-align:middle" th:text="${goodinfo.stock}"></td>
+										<td style="display:table-cell; vertical-align:middle" th:text="${goodinfo.recommend}"></td>
+										<td style="display:table-cell; vertical-align:middle" th:text="${goodinfo.updatetime}"></td>
+										<td style="display:table-cell; vertical-align:middle"><a th:href="@{/admin/goodinfo/edit(id=${goodinfo.id})}"
+											title="编辑"><i class="icon-edit"></i></a></td>
+										<td style="display:table-cell; vertical-align:middle"><a th:href="@{/admin/goodinfo/moveup(id=${goodinfo.id})}"
+											title="上移"><i class="icos-arrow-up"></i></a></td>	
+										<td style="display:table-cell; vertical-align:middle"><a th:href="@{/admin/goodinfo/movedown(id=${goodinfo.id})}"
+											title="下移"><i class="icos-arrow-down"></i></a></td>	
+										<td style="display:table-cell; vertical-align:middle"><a th:href="@{/admin/goodinfo/del(id=${goodinfo.id})}"
+											title="删除"><i class="icon-trash visual red"
+												onclick="return confirm('确定要删除吗?')"></i></a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- /.row -->
+			<!-- /Page Content -->
+		</div>
+		<!-- /.container -->
+
+	</div>
+
+</body>
+</html>

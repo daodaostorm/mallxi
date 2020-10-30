@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>header</title>
+</head>
+
+<body>
+	<div id="content" th:fragment="content">
+		<div class="container">
+			<!-- Breadcrumbs line -->
+			<div class="crumbs">
+				<ul id="breadcrumbs" class="breadcrumb">
+					<li><i class="icon-home"></i> <a href="/">主页</a></li>
+					<li class="current">优惠券管理</li>
+				</ul>
+
+			</div>
+			<!-- /Breadcrumbs line -->
+
+			<!--=== Page Header ===-->
+			<div class="page-header">
+				<div class="page-title">
+					<span th:inline="text">欢迎使用，[[${#httpServletRequest.remoteUser}]]!</span>
+				</div>
+
+			</div>
+			<!-- /Page Header -->
+
+			<!--=== Page Content ===-->
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="widget box">
+						<div class="widget-header">
+							<h4>
+								<i class="icon-reorder"></i> 优惠券编辑
+							</h4>
+							<div class="toolbar no-padding">
+								<div class="btn-group">
+									<span class="btn btn-xs collapse"><i
+										class="icon-angle-down"></i></span>
+								</div>
+							</div>
+						</div>
+						<div class="content no-padding">
+							<form action="#" th:action="@{/admin/lingquan/edit}"
+								th:object="${lingquanEdit}" method="post" enctype="multipart/form-data">
+								<input type="hidden" th:field="*{id}" />
+								<input type="hidden" th:field="*{leftpic}" />
+								<input type="hidden" th:field="*{rightpic}" />
+								<p>
+									<label style="width: 80px; vertical-align: middle">名称:
+									</label> <input type="text" style="width: 700px;" th:field="*{name}" />
+								</p>
+								<p>
+									<label style="width: 80px; vertical-align: middle">优惠图片:
+									</label><img th:src="*{leftpic}" width="150" height="50" />
+									<label style="width: 80px; vertical-align: middle"> </label><input type="file" name="file" style="width:700px;" />
+								</p>
+								<p>
+									<label style="width: 80px; vertical-align: middle">打折图片:
+									</label><img th:src="*{rightpic}" width="50" height="50" />
+									<label style="width: 80px; vertical-align: middle"> </label><input type="file" name="file1" style="width:700px;" />
+								</p>
+								<p>
+									<label style="width: 80px; vertical-align: middle">满多少:
+									</label><input type="text" style="width: 700px;" th:field="*{man}" />
+								</p>
+								<p>
+									<label style="width: 80px; vertical-align: middle">减多少:
+									</label><input type="text" style="width: 700px;" th:field="*{jian}" />
+								</p>
+								<p>
+									<label style="width: 80px; vertical-align: middle">分类:
+									</label><input type="text" style="width: 700px;" list="typelist" th:field="*{typestr}" >
+									<datalist id="typelist">
+										<option>推荐</option>
+										<option>日用品</option>
+										<option>狗粮</option>
+										<option>猫粮</option>
+										<option>湿粮</option>
+										<option>保健品</option>
+									</datalist>
+									</input>
+								</p>
+								<p>
+									<label style="width: 80px; vertical-align: middle">状态:
+									</label><input type="text" style="width: 700px;" list="statuslist" th:field="*{statusstr}" >
+									<datalist id="statuslist">
+										<option>上架</option>
+										<option>下架</option>
+									</datalist>
+									</input>
+								</p>
+								<p>
+									<input type="submit" value="提交" /> <input type="reset"
+										value="重置" />
+								</p>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- /.row -->
+			<!-- /Page Content -->
+		</div>
+		<!-- /.container -->
+
+	</div>
+
+</body>
+</html>

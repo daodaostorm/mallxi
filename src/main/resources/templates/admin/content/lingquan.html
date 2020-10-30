@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>header</title>
+</head>
+
+<body>
+	<div id="content" th:fragment="content">
+		<div class="container">
+
+			<!--=== Page Header ===-->
+			<div class="page-header">
+				<div class="page-title">
+					<h3>优惠券管理</h3>
+				</div>
+			</div>
+			<!-- /Page Header -->
+
+			<!--=== Page Content ===-->
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="widget box">
+						<div class="widget-header">
+							<h4>
+								<i class="icon-reorder"></i> 优惠券列表
+							</h4>
+							<div class="toolbar no-padding">
+								<div class="btn-group">
+									<span class="btn btn-xs "><a
+										th:href="@{/admin/lingquan/add}"><i class="icon-plus"></i></a></span>
+								</div>
+							</div>
+						</div>
+						<div class="content no-padding">
+							<table id="grid-data"
+								class="table table-condensed table-hover table-striped">
+								<thead>
+									<tr>
+										<th data-column-id="id">编号</th>
+										<th data-column-id="name">名称</th>
+										<th data-column-id="leftpic">优惠图片</th>
+										<th data-column-id="rightpic">打折图片</th>											
+										<th data-column-id="man">满多少</th>
+										<th data-column-id="jian">减多少</th>			
+										<th data-column-id="typestr">分类</th>								
+										<th data-column-id="dateupdate">更新时间</th>
+										<th data-column-id="statusstr">状态</th>
+										<th data-column-id="edit">编辑</th>
+										<th data-column-id="moveup">上移</th>
+										<th data-column-id="movedown">下移</th>
+										<th data-column-id="delete">删除</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="lingquan : ${lingquanlist}">
+										<td style="display:table-cell; vertical-align:middle" th:text="${lingquan.id}"></td>
+										<td style="display:table-cell; vertical-align:middle" th:text="${lingquan.name}"></td>
+										<td ><img th:src="${lingquan.leftpic}" width="150" height="50" /></td>
+										<td ><img th:src="${lingquan.rightpic}" width="50" height="50" /></td>
+										<td style="display:table-cell; vertical-align:middle" th:text="${lingquan.man}"></td>
+										<td style="display:table-cell; vertical-align:middle" th:text="${lingquan.jian}"></td>
+										<td style="display:table-cell; vertical-align:middle" th:text="${lingquan.typestr}"></td>
+										<td style="display:table-cell; vertical-align:middle" th:text="${lingquan.statusstr}"></td>
+										<td style="display:table-cell; vertical-align:middle" th:text="${lingquan.dateupdate}"></td>
+										<td style="display:table-cell; vertical-align:middle"><a th:href="@{/admin/lingquan/edit(id=${lingquan.id})}"
+											title="编辑"><i class="icon-edit"></i></a></td>
+										<td style="display:table-cell; vertical-align:middle"><a th:href="@{/admin/lingquan/moveup(id=${lingquan.id})}"
+											title="上移"><i class="icos-arrow-up"></i></a></td>	
+										<td style="display:table-cell; vertical-align:middle"><a th:href="@{/admin/lingquan/movedown(id=${lingquan.id})}"
+											title="下移"><i class="icos-arrow-down"></i></a></td>		
+										<td style="display:table-cell; vertical-align:middle"><a th:href="@{/admin/lingquan/del(id=${lingquan.id})}"
+											title="删除"><i class="icon-trash visual red"
+												onclick="return confirm('确定要删除吗?')"></i></a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- /.row -->
+			<!-- /Page Content -->
+		</div>
+		<!-- /.container -->
+
+	</div>
+
+</body>
+</html>
