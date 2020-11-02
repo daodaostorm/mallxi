@@ -6,9 +6,9 @@ import com.aliyun.oss.OSSClient;
 
 public class AliCloudUtils {
 	
-	public static String ENDPOINT = "oss-cn-shanghai.aliyuncs.com";
-	public static String ACCESSKEYID = "LTAI4FdmogkQ2ZJVRQLxYhNf";
-	public static String ACCESSKEYSECRET = "UcNLTdSKldFvMiz91KNutWYNClf1ee";
+	public static String ENDPOINT = "";
+	public static String ACCESSKEYID = "";
+	public static String ACCESSKEYSECRET = "";
 	public static String BUCKETNAME = "mallsvr";
 	public static String KEY = "master/images/";
 
