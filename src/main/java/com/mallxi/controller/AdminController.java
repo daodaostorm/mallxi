@@ -54,12 +54,15 @@ public class AdminController {
 	private ClientUserRepository clientuserRepository;
 	private BannersRepository bannerRepository;
 	private GoodsRepository goodRepository;
-	private UserService userService;
-	private SendSMSService sendSMSService;
 	private ThirdpartyRepository thirdpartyRepository;
-	private AppPushService appPushService;;
 	private ZixunRepository zixunRepository;
 	private LingquanRepository lingquanRepository;
+	
+	private UserService userService;
+	private SendSMSService sendSMSService;
+	
+	private AppPushService appPushService;;
+	
 
 	private String strToken;
 	
