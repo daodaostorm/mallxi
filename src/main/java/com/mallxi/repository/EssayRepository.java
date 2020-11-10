@@ -16,7 +16,7 @@ import com.mallxi.beandata.GoodInfo;
  */
 @RestResource(exported = false)
 
-public interface EssayRepository extends PagingAndSortingRepository<GoodInfo, Long> {
+public interface EssayRepository extends PagingAndSortingRepository<Essayinfo, Long> {
 
 	Page<Essayinfo> findByIdGreaterThan(Long startid, Pageable p);
 

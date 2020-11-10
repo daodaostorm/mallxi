@@ -144,7 +144,8 @@ CREATE TABLE if not exists `payinfo` (
 
 CREATE TABLE if not exists `essayinfo` (
   `id` bigint(16) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  `proid` varchar(64) NOT NULL UNIQUE KEY,
+  `essayid` varchar(64) NOT NULL UNIQUE KEY,
+  `proid` varchar(64) NOT NULL DEFAULT "",
   `name` varchar(100) NOT NULL DEFAULT "",
   `subtitle` varchar(200) NOT NULL DEFAULT "",
   `author` varchar(200) NOT NULL DEFAULT "",

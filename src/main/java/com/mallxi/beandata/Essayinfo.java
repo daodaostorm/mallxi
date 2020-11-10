@@ -18,6 +18,7 @@ public class Essayinfo {
 	private Long id;
 		
 	private String proid;
+	private String essayid;
 	private String name;
 	private String subtitle;
 	private String author;
@@ -44,6 +45,13 @@ public class Essayinfo {
 	}
 	public void setProid(String proid) {
 		this.proid = proid;
+	}
+	
+	public String getEssayid() {
+		return essayid;
+	}
+	public void setEssayid(String essayid) {
+		this.essayid = essayid;
 	}
 	public String getName() {
 		return name;

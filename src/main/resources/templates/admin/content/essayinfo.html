@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>header</title>
+</head>
+
+<body>
+	<div id="content" th:fragment="content">
+		<div class="container">
+
+			<!--=== Page Header ===-->
+			<div class="page-header">
+				<div class="page-title">
+					<h3>推荐文管理</h3>
+				</div>
+			</div>
+			<!-- /Page Header -->
+
+			<!--=== Page Content ===-->
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="widget box">
+						<div class="widget-header">
+							<h4>
+								<i class="icon-reorder"></i> 推荐文列表
+							</h4>
+							<div class="toolbar no-padding">
+								<div class="btn-group">
+									<span class="btn btn-xs "><a
+										th:href="@{/admin/essayinfo/add}"><i class="icon-plus"></i></a></span>
+								</div>
+							</div>
+						</div>
+						<div class="content no-padding">
+							<table id="grid-data"
+								class="table table-condensed table-hover table-striped">
+								<thead>
+									<tr>
+										<th data-column-id="essayid">推荐文ID</th>
+										<th data-column-id="name">标题</th>
+										<th data-column-id="author">作者</th>
+										<th data-column-id="proid">商品号</th>
+										<th data-column-id="detailpic1">插图1</th>
+										<th data-column-id="status">状态</th>										
+										<th data-column-id="updatetime">更新时间</th>
+										<th data-column-id="edit">编辑</th>
+										<th data-column-id="moveup">上移</th>
+										<th data-column-id="movedown">下移</th>
+										<th data-column-id="delete">删除</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="essayinfo : ${essayinfolist}">
+										<td style="display:table-cell; vertical-align:middle" th:text="${essayinfo.essayid}"></td>
+										<td style="display:table-cell; vertical-align:middle" th:text="${essayinfo.name}"></td>
+										<td style="display:table-cell; vertical-align:middle" th:text="${essayinfo.author}"></td>
+										<td style="display:table-cell; vertical-align:middle" th:text="${essayinfo.proid}"></td>
+										<td ><img th:src="${essayinfo.detailpic1}" width="50" height="50" /></td>
+										<td style="display:table-cell; vertical-align:middle" th:text="${essayinfo.status}"></td>
+										<td style="display:table-cell; vertical-align:middle" th:text="${essayinfo.updatetime}"></td>
+										<td style="display:table-cell; vertical-align:middle"><a th:href="@{/admin/essayinfo/edit(id=${essayinfo.id})}"
+											title="编辑"><i class="icon-edit"></i></a></td>
+										<td style="display:table-cell; vertical-align:middle"><a th:href="@{/admin/essayinfo/moveup(id=${essayinfo.id})}"
+											title="上移"><i class="icos-arrow-up"></i></a></td>	
+										<td style="display:table-cell; vertical-align:middle"><a th:href="@{/admin/essayinfo/movedown(id=${essayinfo.id})}"
+											title="下移"><i class="icos-arrow-down"></i></a></td>	
+										<td style="display:table-cell; vertical-align:middle"><a th:href="@{/admin/essayinfo/del(id=${essayinfo.id})}"
+											title="删除"><i class="icon-trash visual red"
+												onclick="return confirm('确定要删除吗?')"></i></a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- /.row -->
+			<!-- /Page Content -->
+		</div>
+		<!-- /.container -->
+
+	</div>
+
+</body>
+</html>
