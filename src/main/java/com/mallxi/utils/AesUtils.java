@@ -1,6 +1,7 @@
 package com.mallxi.utils;
 
 import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
@@ -11,55 +12,46 @@ import org.apache.commons.codec.binary.Base64;
  */
 public class AesUtils {
 
-    // 加密
-    public static String Encrypt(String sSrc, String sKey) throws Exception {
-        if (sKey == null) {
-            System.out.print("Key为空null");
-            return null;
-        }
-        // 判断Key是否为16位
-        if (sKey.length() != 16) {
-            System.out.print("Key长度不是16位");
-            return null;
-        }
-        byte[] raw = sKey.getBytes("utf-8");
-        SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
-        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");//"算法/模式/补码方式"
-        cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
-        byte[] encrypted = cipher.doFinal(sSrc.getBytes("utf-8"));
+	private static final String KEY = "ranchu.com666666";
+    private static final String INITVector = "wozaiyule.999999";
+	
+	public static String byteToBase64(byte[] bytes) {
 
-        return new Base64().encodeToString(encrypted);//此处使用BASE64做转码功能，同时能起到2次加密的作用。
+        byte[] encode = new Base64().encode(bytes);
+        String result = new String(encode);
+        return result;
+    }
+	
+    public static String encrypt(String value) {
+        try {
+            IvParameterSpec iv = new IvParameterSpec(INITVector.getBytes("UTF-8"));
+            SecretKeySpec skeySpec = new SecretKeySpec(KEY.getBytes("UTF-8"), "AES");
+
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
+            cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
+
+            byte[] encrypted = cipher.doFinal(value.getBytes());
+            return byteToBase64(encrypted);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 
-    // 解密
-    public static String Decrypt(String sSrc, String sKey) throws Exception {
-        try {
-            // 判断Key是否正确
-            if (sKey == null) {
-                System.out.print("Key为空null");
-                return null;
-            }
-            // 判断Key是否为16位
-            if (sKey.length() != 16) {
-                System.out.print("Key长度不是16位");
-                return null;
-            }
-            byte[] raw = sKey.getBytes("utf-8");
-            SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
-            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-            cipher.init(Cipher.DECRYPT_MODE, skeySpec);
-            byte[] encrypted1 = new Base64().decode(sSrc);//先用base64解密
-            try {
-                byte[] original = cipher.doFinal(encrypted1);
-                String originalString = new String(original,"utf-8");
-                return originalString;
-            } catch (Exception e) {
-                System.out.println(e.toString());
-                return null;
-            }
-        } catch (Exception ex) {
-            System.out.println(ex.toString());
-            return null;
-        }
+    public static String decrypt(String encrypted) {
+    	try {
+    		IvParameterSpec iv = new IvParameterSpec(INITVector.getBytes("UTF-8"));
+    		SecretKeySpec skeySpec = new SecretKeySpec(KEY.getBytes("UTF-8"), "AES");
+     
+    		Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
+    		cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
+    		byte[] original = cipher.doFinal(Base64.decodeBase64(encrypted));
+     
+    		return new String(original);
+    	} catch (Exception ex) {
+    		ex.printStackTrace();
+    	}
+     
+    	return null;
     }
 }

@@ -18,6 +18,7 @@ import com.mallxi.beandata.ClientUser;
 import com.mallxi.message.ContentInfo;
 import com.mallxi.message.Message;
 import com.mallxi.service.ClientUserService;
+import com.mallxi.utils.AesUtils;
 import com.mallxi.utils.DateTimeUtils;
 import com.mallxi.utils.TokenUtils;
 
@@ -46,17 +47,25 @@ public class ClientUserController {
 
 		String strUserName = params.get("username").toString();
 		// String strPass = params.get("password").toString();
-
+		LOGGER.info("createuser username: " + strUserName);
 		ClientUser user = new ClientUser();
 
 		Collection<ClientUser> clientuser = userService.findByUserame(strUserName);
 		if (clientuser != null && clientuser.size() >= 1) {
-			message.setMsg(-1, "用户名已存在", "");
+			message.setMsg(-1, "用户名已存在", "user exist");
 		} else {
 
 			user.setUsername(strUserName);
 			if (params.get("password") != null) {
-				user.setPassword(params.get("password").toString());
+				String strDecode = AesUtils.decrypt(params.get("password").toString());
+				LOGGER.info("createuser password: " + strDecode);
+				if (!strDecode.startsWith(strUserName + "-_-")) {
+					message.setMsg(-2, "非法请求", "Error request");
+					return new ResponseEntity<Message>(message, HttpStatus.OK);
+				}
+				String strpass = strDecode.substring(strUserName.length() + 3);
+				LOGGER.info("createuser strpass: " + strpass);
+				user.setPassword(strpass);
 			}
 			if (params.get("phone") != null) {
 				user.setPhone(params.get("phone").toString());
@@ -74,7 +83,7 @@ public class ClientUserController {
 			user.setUserid(DateTimeUtils.createNowTimeId());
 			user.setUpdatetime(DateTimeUtils.getNowDateTime());
 			userService.UpdateInfo(user);
-			message.setMsg(0, "创建成功", "");
+			message.setMsg(0, "创建成功", "ok");
 		}
 		return new ResponseEntity<Message>(message, HttpStatus.OK);
 	}
@@ -85,7 +94,16 @@ public class ClientUserController {
 
 		String strUserName = params.get("username").toString();
 		String strPass = params.get("password").toString();
-
+		String strDecode = AesUtils.decrypt(strPass);
+		LOGGER.info("pass decode: " + strDecode);
+		String strHour = DateTimeUtils.getNowDateHour();
+		strHour = "-_-" + strHour;
+		LOGGER.info("system hour: " + strHour);
+		if (!strDecode.contains(strHour)) {
+			message.setMsg(-2, "请求出错", "errorinfo");
+			return new ResponseEntity<Message>(message, HttpStatus.OK);
+		}
+		strDecode = strDecode.replace(strHour, "");
 		ContentInfo content = new ContentInfo();
 		content.setUser(strUserName);
 		content.setToken("");
@@ -93,7 +111,7 @@ public class ClientUserController {
 		Collection<ClientUser> clientuser = userService.findByUserame(strUserName);
 		if (clientuser != null && clientuser.size() >= 1) {
 			ClientUser user = (ClientUser) clientuser.toArray()[0];
-			if (strPass.equals(user.getPassword())) {
+			if (strDecode.equals(user.getPassword())) {
 				String strToken = TokenUtils.getToken(user.getUserid(), user.getPassword());
 
 				content.setUserid(user.getUserid());

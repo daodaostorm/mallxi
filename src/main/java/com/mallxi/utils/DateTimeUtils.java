@@ -12,6 +12,13 @@ public class DateTimeUtils {
 		return df.format(date);
 	}
 
+	public static String getNowDateHour() {
+
+		Date date = new Date();
+		SimpleDateFormat df = new SimpleDateFormat("MMddHH");
+		return df.format(date);
+	}
+	
 	public static String getNowDateTime() {
 
 		Date date = new Date();
