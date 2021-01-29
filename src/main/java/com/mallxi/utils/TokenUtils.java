@@ -10,7 +10,7 @@ import com.auth0.jwt.algorithms.Algorithm;
  */
 public class TokenUtils {
 
-	static Long  extTime = 1000*60*5L;
+	static Long  extTime = 60*60*24*1000L;
 	public static String getToken(String name, String password) {
 
         String token="";
